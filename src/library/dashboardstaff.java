@@ -40,8 +40,11 @@ public class dashboardstaff extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         pfp = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         mainDesktop = new javax.swing.JDesktopPane();
         update = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,15 +60,29 @@ public class dashboardstaff extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("DASHBOARD");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 110, 40));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 110, 30));
 
+        pfp.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         pfp.setText("PROFILE");
         pfp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pfpMouseClicked(evt);
             }
         });
-        jPanel2.add(pfp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 80, 30));
+        jPanel2.add(pfp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 90, 30));
+
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel7.setText("User Panel");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 90, 20));
+
+        jButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jButton1.setText("LogOut");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 80, -1));
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 110, 420);
@@ -80,12 +97,13 @@ public class dashboardstaff extends javax.swing.JFrame {
         );
         mainDesktopLayout.setVerticalGroup(
             mainDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 310, Short.MAX_VALUE)
+            .addGap(0, 340, Short.MAX_VALUE)
         );
 
         jPanel1.add(mainDesktop);
-        mainDesktop.setBounds(110, 110, 610, 310);
+        mainDesktop.setBounds(110, 30, 610, 340);
 
+        update.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         update.setText("UPDATE");
         update.setMaximumSize(new java.awt.Dimension(69, 23));
         update.setMinimumSize(new java.awt.Dimension(69, 23));
@@ -100,7 +118,17 @@ public class dashboardstaff extends javax.swing.JFrame {
             }
         });
         jPanel1.add(update);
-        update.setBounds(120, 80, 80, 23);
+        update.setBounds(120, 383, 80, 30);
+
+        jButton2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton2.setText("DELETE");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jButton2);
+        jButton2.setBounds(230, 383, 80, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -187,6 +215,33 @@ public class dashboardstaff extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_updateActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        login log = new login();
+        log.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        String userId = JOptionPane.showInputDialog(this, "Enter the User ID to delete:");
+    
+    if (userId != null && !userId.isEmpty()) {
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete user ID " + userId + "?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+        
+        if (confirm == JOptionPane.YES_OPTION) {
+            connectDB con = new connectDB();
+            int result = con.UpdateData("DELETE FROM users WHERE user_id = " + userId);
+            
+            if (result == 1) {
+                JOptionPane.showMessageDialog(this, "User deleted successfully!");
+            } else {
+                JOptionPane.showMessageDialog(this, "User ID not found or deletion failed.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Please enter a valid User ID.");
+    }
+    }//GEN-LAST:event_jButton2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -223,8 +278,11 @@ public class dashboardstaff extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JDesktopPane mainDesktop;

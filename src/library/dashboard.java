@@ -40,6 +40,7 @@ public class dashboard extends javax.swing.JFrame {
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
+        jPanel5 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -51,15 +52,26 @@ public class dashboard extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         mainDesktop = new javax.swing.JDesktopPane();
-        edit = new javax.swing.JButton();
         delete = new javax.swing.JButton();
         add = new javax.swing.JButton();
+        edit = new javax.swing.JButton();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
 
         jMenu4.setText("Edit");
         jMenuBar2.add(jMenu4);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -146,7 +158,7 @@ public class dashboard extends javax.swing.JFrame {
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 110, 420);
 
-        mainDesktop.setBackground(new java.awt.Color(204, 153, 255));
+        mainDesktop.setBackground(new java.awt.Color(255, 255, 255));
         mainDesktop.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mainDesktopMouseClicked(evt);
@@ -161,27 +173,11 @@ public class dashboard extends javax.swing.JFrame {
         );
         mainDesktopLayout.setVerticalGroup(
             mainDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 370, Short.MAX_VALUE)
+            .addGap(0, 340, Short.MAX_VALUE)
         );
 
         jPanel1.add(mainDesktop);
-        mainDesktop.setBounds(110, 50, 610, 370);
-
-        edit.setText("EDIT");
-        edit.setMaximumSize(new java.awt.Dimension(69, 23));
-        edit.setMinimumSize(new java.awt.Dimension(69, 23));
-        edit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                editMouseClicked(evt);
-            }
-        });
-        edit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editActionPerformed(evt);
-            }
-        });
-        jPanel1.add(edit);
-        edit.setBounds(210, 20, 80, 23);
+        mainDesktop.setBounds(110, 30, 610, 340);
 
         delete.setText("DELETE");
         delete.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -189,8 +185,13 @@ public class dashboard extends javax.swing.JFrame {
                 deleteMouseClicked(evt);
             }
         });
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
         jPanel1.add(delete);
-        delete.setBounds(300, 20, 80, 23);
+        delete.setBounds(330, 380, 80, 30);
 
         add.setText("ADD");
         add.setMaximumSize(new java.awt.Dimension(69, 23));
@@ -206,7 +207,23 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
         jPanel1.add(add);
-        add.setBounds(120, 20, 80, 23);
+        add.setBounds(130, 380, 80, 30);
+
+        edit.setText("EDIT");
+        edit.setMaximumSize(new java.awt.Dimension(69, 23));
+        edit.setMinimumSize(new java.awt.Dimension(69, 23));
+        edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editMouseClicked(evt);
+            }
+        });
+        edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editActionPerformed(evt);
+            }
+        });
+        jPanel1.add(edit);
+        edit.setBounds(230, 380, 80, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -334,6 +351,10 @@ public class dashboard extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_deleteMouseClicked
 
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteActionPerformed
+
     public static void main(String args[]) {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -358,6 +379,7 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JDesktopPane mainDesktop;
     private javax.swing.JPanel user_button;
     private javax.swing.JLabel user_label;

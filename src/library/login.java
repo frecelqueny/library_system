@@ -178,7 +178,7 @@ public class login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userActionPerformed
@@ -198,6 +198,11 @@ public class login extends javax.swing.JFrame {
     connectDB conf = new connectDB();
     Connection con = conf.getConnection();
 
+    if (con == null) {
+        JOptionPane.showMessageDialog(this, "Database connection failed!", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
     String sql = "SELECT user_id, password, role FROM users WHERE username = ?";
 
     try {
@@ -208,22 +213,23 @@ public class login extends javax.swing.JFrame {
         if (rs.next()) {
             String storedPassword = rs.getString("password");
             String roleFromDB = rs.getString("role");
-            String userId = rs.getString("user_id"); // ✅ GET THE LOGGED-IN USER ID
+            String userId = rs.getString("user_id");
 
+            // TODO: If passwords are hashed, use BCrypt.checkpw(password, storedPassword)
             if (storedPassword.equals(password)) {
                 if (roleFromDB.equalsIgnoreCase(selectedRole)) {
                     JOptionPane.showMessageDialog(this, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
-                    // ✅ Redirect with userId
+                    // Open the correct dashboard
                     if ("Admin".equalsIgnoreCase(roleFromDB)) {
                         dashboard admin = new dashboard();
                         admin.setVisible(true);
                     } else if ("User".equalsIgnoreCase(roleFromDB)) {
-                        dashboardstaff staff = new dashboardstaff(userId); // ✅ PASS USER ID HERE
+                        dashboardstaff staff = new dashboardstaff(userId);
                         staff.setVisible(true);
                     }
 
-                    this.dispose(); // close login
+                    this.dispose(); // Close login window
                 } else {
                     JOptionPane.showMessageDialog(this, "Incorrect role selection!", "Login Error", JOptionPane.ERROR_MESSAGE);
                 }
