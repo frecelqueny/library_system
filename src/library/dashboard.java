@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package library;
-
+import Authentication.Registration;
+import Authentication.login;
+import adminInternalFrame.student;
 import adminInternalFrame.user;
 import config.connectDB;
 import java.awt.Color;
@@ -24,10 +26,6 @@ public class dashboard extends javax.swing.JFrame {
     public dashboard() {
         initComponents();
         
-         // Hide buttons initially
-        add.setVisible(false);
-        edit.setVisible(false);
-        delete.setVisible(false);
     }
         Color navcolor = new Color(51,51,51);
         Color headcolor = new Color(0,0,0);
@@ -46,15 +44,18 @@ public class dashboard extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        user_label1 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         user_button = new javax.swing.JPanel();
         user_label = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         mainDesktop = new javax.swing.JDesktopPane();
-        delete = new javax.swing.JButton();
-        add = new javax.swing.JButton();
-        edit = new javax.swing.JButton();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -90,56 +91,8 @@ public class dashboard extends javax.swing.JFrame {
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 110, 40));
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel7.setText("Admin Panel");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 90, 20));
-
-        user_button.setBackground(new java.awt.Color(255, 255, 255));
-        user_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                user_buttonMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                user_buttonMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                user_buttonMouseExited(evt);
-            }
-        });
-        user_button.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        user_label.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        user_label.setText("User");
-        user_button.add(user_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 30, 10));
-
-        jPanel2.add(user_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 90, 30));
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 90, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
-        );
-
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 90, 30));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 90, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 33, Short.MAX_VALUE)
-        );
-
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 90, -1));
+        jLabel7.setText("Admin ");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 60, 20));
 
         jButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jButton1.setText("LogOut");
@@ -155,10 +108,85 @@ public class dashboard extends javax.swing.JFrame {
         });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 90, -1));
 
+        user_label1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        user_label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        user_label1.setText("User");
+        user_label1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                user_label1MouseClicked(evt);
+            }
+        });
+        jPanel2.add(user_label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 100));
+
+        jPanel3.setBackground(new java.awt.Color(204, 153, 255));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 0, -1, 97));
+
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Book");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 60, 30));
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 90, 30));
+
+        jPanel4.setBackground(new java.awt.Color(204, 153, 255));
+        jPanel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setBackground(new java.awt.Color(204, 153, 255));
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Borrow");
+        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 70, 30));
+
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 90, 30));
+
+        user_button.setBackground(new java.awt.Color(204, 153, 255));
+        user_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                user_buttonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                user_buttonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                user_buttonMouseExited(evt);
+            }
+        });
+        user_button.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        user_label.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        user_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        user_label.setText("User");
+        user_label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                user_labelMouseClicked(evt);
+            }
+        });
+        user_button.add(user_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 70, 30));
+
+        jPanel2.add(user_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 90, 30));
+
+        jPanel6.setBackground(new java.awt.Color(204, 153, 255));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setBackground(new java.awt.Color(204, 153, 255));
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Student");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+        jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 70, 30));
+
+        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 90, 30));
+
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 110, 420);
 
-        mainDesktop.setBackground(new java.awt.Color(255, 255, 255));
         mainDesktop.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mainDesktopMouseClicked(evt);
@@ -173,57 +201,11 @@ public class dashboard extends javax.swing.JFrame {
         );
         mainDesktopLayout.setVerticalGroup(
             mainDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 340, Short.MAX_VALUE)
+            .addGap(0, 420, Short.MAX_VALUE)
         );
 
         jPanel1.add(mainDesktop);
-        mainDesktop.setBounds(110, 30, 610, 340);
-
-        delete.setText("DELETE");
-        delete.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                deleteMouseClicked(evt);
-            }
-        });
-        delete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteActionPerformed(evt);
-            }
-        });
-        jPanel1.add(delete);
-        delete.setBounds(330, 380, 80, 30);
-
-        add.setText("ADD");
-        add.setMaximumSize(new java.awt.Dimension(69, 23));
-        add.setMinimumSize(new java.awt.Dimension(69, 23));
-        add.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addMouseClicked(evt);
-            }
-        });
-        add.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addActionPerformed(evt);
-            }
-        });
-        jPanel1.add(add);
-        add.setBounds(130, 380, 80, 30);
-
-        edit.setText("EDIT");
-        edit.setMaximumSize(new java.awt.Dimension(69, 23));
-        edit.setMinimumSize(new java.awt.Dimension(69, 23));
-        edit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                editMouseClicked(evt);
-            }
-        });
-        edit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editActionPerformed(evt);
-            }
-        });
-        jPanel1.add(edit);
-        edit.setBounds(230, 380, 80, 30);
+        mainDesktop.setBounds(110, 0, 610, 420);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -240,23 +222,6 @@ public class dashboard extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void user_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_buttonMouseClicked
-        user us = new user(); // All users
-    
-        mainDesktop.add(us).setVisible(true);
-        add.setVisible(true);
-        edit.setVisible(true);
-        delete.setVisible(true);
-    }//GEN-LAST:event_user_buttonMouseClicked
-
-    private void user_buttonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_buttonMouseEntered
-        user_label.setBackground(bodycolor);
-    }//GEN-LAST:event_user_buttonMouseEntered
-
-    private void user_buttonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_buttonMouseExited
-         user_label.setBackground(navcolor);
-    }//GEN-LAST:event_user_buttonMouseExited
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -267,93 +232,44 @@ public class dashboard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void user_label1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_label1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_user_label1MouseClicked
+
     private void mainDesktopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainDesktopMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_mainDesktopMouseClicked
 
-    private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addActionPerformed
+    private void user_buttonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_buttonMouseExited
+        user_label.setBackground(navcolor);
+    }//GEN-LAST:event_user_buttonMouseExited
 
-    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editActionPerformed
+    private void user_buttonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_buttonMouseEntered
+        user_label.setBackground(bodycolor);
+    }//GEN-LAST:event_user_buttonMouseEntered
 
-    private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
-        Registratio reg = new Registratio(true); // Indicate from dashboard
-        reg.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_addMouseClicked
+    private void user_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_buttonMouseClicked
+//        user us = new user(); // All users
+//
+//        mainDesktop.add(us).setVisible(true);
+//        add.setVisible(true);
+//        edit.setVisible(true);
+//        delete.setVisible(true);
+    }//GEN-LAST:event_user_buttonMouseClicked
 
-    private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
-     if (updateUserWindow != null && updateUserWindow.isShowing()) {
-        updateUserWindow.toFront(); // Bring the existing window to front
-        return;
-    }
+    private void user_labelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_labelMouseClicked
+     user us = new user();
+ 
+    mainDesktop.add(us);
+    us.setVisible(true);
+    }//GEN-LAST:event_user_labelMouseClicked
 
-    String userId = JOptionPane.showInputDialog(this, "Enter the User ID to edit:");
-    if (userId != null && !userId.isEmpty()) {
-        connectDB con = new connectDB();
-        try {
-            ResultSet rs = con.getData("SELECT user_id, first_name, last_name, username, email, password FROM users WHERE user_id = " + userId);
-            if (rs.next()) {
-                updateUserWindow = new UpdateUser();
-                updateUserWindow.setUserData(
-                    rs.getString("user_id"),
-                    rs.getString("first_name"),
-                    rs.getString("last_name"),
-                    rs.getString("username"),
-                    rs.getString("email"),
-                    rs.getString("password")
-                );
-                updateUserWindow.setVisible(true);
-
-                // Reset reference when window closes
-                updateUserWindow.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosed(java.awt.event.WindowEvent e) {
-                        updateUserWindow = null;
-                    }
-
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        updateUserWindow = null;
-                    }
-                });
-
-            } else {
-                JOptionPane.showMessageDialog(this, "User ID not found!");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-        }
-    }
-    }//GEN-LAST:event_editMouseClicked
-
-    private void deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteMouseClicked
-        String userId = JOptionPane.showInputDialog(this, "Enter the User ID to delete:");
-    
-    if (userId != null && !userId.isEmpty()) {
-        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete user ID " + userId + "?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
-        
-        if (confirm == JOptionPane.YES_OPTION) {
-            connectDB con = new connectDB();
-            int result = con.UpdateData("DELETE FROM users WHERE user_id = " + userId);
-            
-            if (result == 1) {
-                JOptionPane.showMessageDialog(this, "User deleted successfully!");
-            } else {
-                JOptionPane.showMessageDialog(this, "User ID not found or deletion failed.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    } else {
-        JOptionPane.showMessageDialog(this, "Please enter a valid User ID.");
-    }
-    }//GEN-LAST:event_deleteMouseClicked
-
-    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_deleteActionPerformed
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        student st = new student();
+ 
+    mainDesktop.add(st);
+    st.setVisible(true);
+    }//GEN-LAST:event_jLabel6MouseClicked
 
     public static void main(String args[]) {
         
@@ -365,12 +281,13 @@ public class dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton add;
-    private javax.swing.JButton delete;
-    private javax.swing.JButton edit;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -380,8 +297,10 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JDesktopPane mainDesktop;
     private javax.swing.JPanel user_button;
     private javax.swing.JLabel user_label;
+    private javax.swing.JLabel user_label1;
     // End of variables declaration//GEN-END:variables
 }

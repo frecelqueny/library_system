@@ -5,6 +5,7 @@
  */
 package library;
 
+import Authentication.login;
 import config.connectDB;
 import adminInternalFrame.user;
 import java.sql.ResultSet;
@@ -39,7 +40,6 @@ public class dashboardstaff extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        pfp = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         mainDesktop = new javax.swing.JDesktopPane();
@@ -62,18 +62,9 @@ public class dashboardstaff extends javax.swing.JFrame {
         jLabel5.setText("DASHBOARD");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 110, 30));
 
-        pfp.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        pfp.setText("PROFILE");
-        pfp.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pfpMouseClicked(evt);
-            }
-        });
-        jPanel2.add(pfp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 90, 30));
-
         jLabel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel7.setText("User Panel");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 90, 20));
+        jLabel7.setText("User");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 50, 20));
 
         jButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jButton1.setText("LogOut");
@@ -87,13 +78,11 @@ public class dashboardstaff extends javax.swing.JFrame {
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 110, 420);
 
-        mainDesktop.setBackground(new java.awt.Color(255, 255, 255));
-
         javax.swing.GroupLayout mainDesktopLayout = new javax.swing.GroupLayout(mainDesktop);
         mainDesktop.setLayout(mainDesktopLayout);
         mainDesktopLayout.setHorizontalGroup(
             mainDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
+            .addGap(0, 650, Short.MAX_VALUE)
         );
         mainDesktopLayout.setVerticalGroup(
             mainDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,7 +90,7 @@ public class dashboardstaff extends javax.swing.JFrame {
         );
 
         jPanel1.add(mainDesktop);
-        mainDesktop.setBounds(110, 30, 610, 340);
+        mainDesktop.setBounds(110, 80, 650, 340);
 
         update.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         update.setText("UPDATE");
@@ -118,7 +107,7 @@ public class dashboardstaff extends javax.swing.JFrame {
             }
         });
         jPanel1.add(update);
-        update.setBounds(120, 383, 80, 30);
+        update.setBounds(130, 30, 80, 30);
 
         jButton2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton2.setText("DELETE");
@@ -128,13 +117,15 @@ public class dashboardstaff extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(230, 383, 80, 30);
+        jButton2.setBounds(240, 30, 80, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,25 +135,6 @@ public class dashboardstaff extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void pfpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pfpMouseClicked
-        mainDesktop.removeAll();
-    mainDesktop.repaint();
-    update.setVisible(true); // ✅ SHOW ONLY NOW
-
-    try {
-        user userFrame = new user(loggedInUserId); // call internal frame with logged-in user
-        mainDesktop.add(userFrame);
-        userFrame.setVisible(true);
-        userFrame.setSelected(true);
-    } catch (Exception e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error loading user profile: " + e.getMessage());
-    }
-
-    mainDesktop.revalidate();
-    mainDesktop.repaint();
-    }//GEN-LAST:event_pfpMouseClicked
 
     private void updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseClicked
         if (updateUserWindow != null && updateUserWindow.isShowing()) {
@@ -286,7 +258,6 @@ public class dashboardstaff extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JDesktopPane mainDesktop;
-    private javax.swing.JButton pfp;
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }

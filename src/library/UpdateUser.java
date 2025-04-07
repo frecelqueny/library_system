@@ -63,7 +63,7 @@ public class UpdateUser extends javax.swing.JFrame {
         un = new javax.swing.JTextField();
         em = new javax.swing.JTextField();
         pw = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -71,37 +71,37 @@ public class UpdateUser extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 102, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("First Name");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(167, 106, 127, 19));
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("ID");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 106, 127, 19));
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Last Name");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 127, 19));
 
-        jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("UserName");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(167, 180, 127, 19));
 
-        jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Password");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 324, 127, 19));
 
-        jLabel12.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("ConfirmPassword");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(167, 324, 127, 19));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 324, 150, 19));
 
-        jLabel14.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("Email");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 252, 127, 19));
@@ -126,30 +126,20 @@ public class UpdateUser extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 405, 86, 31));
-        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 131, 127, 31));
-        jPanel1.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(167, 131, 127, 31));
-        jPanel1.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 203, 127, 31));
-        jPanel1.add(cpw, new org.netbeans.lib.awtextra.AbsoluteConstraints(167, 354, 127, 31));
-        jPanel1.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(167, 203, 127, 31));
+        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 131, 130, 31));
+        jPanel1.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 131, 130, 31));
+        jPanel1.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 203, 130, 31));
+        jPanel1.add(cpw, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 354, 140, 31));
+        jPanel1.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 203, 130, 31));
         jPanel1.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 275, 284, 31));
-        jPanel1.add(pw, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 354, 127, 31));
+        jPanel1.add(pw, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 354, 130, 31));
 
-        jPanel2.setBackground(new java.awt.Color(153, 102, 255));
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText(" User");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 310, 80));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 304, 60));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 460));
 
         pack();
         setLocationRelativeTo(null);
@@ -240,6 +230,7 @@ public class UpdateUser extends javax.swing.JFrame {
     private javax.swing.JTextField em;
     private javax.swing.JTextField fn;
     private javax.swing.JTextField id;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -248,7 +239,6 @@ public class UpdateUser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField ln;
     private javax.swing.JTextField pw;
     private javax.swing.JButton save;
