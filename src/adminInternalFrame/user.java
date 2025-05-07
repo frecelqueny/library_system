@@ -35,7 +35,7 @@ public class user extends javax.swing.JInternalFrame {
         try {
             connectDB dbc = new connectDB();
             ResultSet rs = dbc.getData("SELECT * FROM users");
-            users_tbl.setModel(DbUtils.resultSetToTableModel(rs));
+            user_tbls.setModel(DbUtils.resultSetToTableModel(rs));
             rs.close();
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
@@ -46,7 +46,7 @@ public class user extends javax.swing.JInternalFrame {
         try {
             connectDB dbc = new connectDB();
             ResultSet rs = dbc.getData("SELECT * FROM users WHERE user_id = '" + userId + "'");
-            users_tbl.setModel(DbUtils.resultSetToTableModel(rs));
+            user_tbls.setModel(DbUtils.resultSetToTableModel(rs));
             rs.close();
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
@@ -66,7 +66,7 @@ public class user extends javax.swing.JInternalFrame {
         user = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        users_tbl = new javax.swing.JTable();
+        user_tbls = new javax.swing.JTable();
         add = new javax.swing.JButton();
         edit = new javax.swing.JButton();
         delete = new javax.swing.JButton();
@@ -75,7 +75,7 @@ public class user extends javax.swing.JInternalFrame {
         user.setBackground(new java.awt.Color(204, 153, 255));
         user.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        users_tbl.setModel(new javax.swing.table.DefaultTableModel(
+        user_tbls.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -86,11 +86,11 @@ public class user extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(users_tbl);
+        jScrollPane1.setViewportView(user_tbls);
 
         jScrollPane2.setViewportView(jScrollPane1);
 
-        user.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 610, 300));
+        user.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 610, 300));
 
         add.setText("ADD");
         add.setMaximumSize(new java.awt.Dimension(69, 23));
@@ -176,12 +176,12 @@ public class user extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_addActionPerformed
 
     private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
-//        if (updateUserWindow != null && updateUserWindow.isShowing()) {
-//            updateUserWindow.thaoFront(); // Bring the existing window to front
-//            return;
-//        }
-//
-//        String userId = JOptionPane.showInputDialog(this, "Enter the User ID to edit:");
+        if (updateUserWindow != null && updateUserWindow.isShowing()) {
+         updateUserWindow.thaoFront(); // Bring the existing window to front
+            return;
+        }
+
+       String userId = JOptionPane.showInputDialog(this, "Enter the User ID to edit:");
 //        if (userId != null && !userId.isEmpty()) {
 //            connectDB con = new connectDB();
 //            try {
@@ -221,14 +221,14 @@ public class user extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_editMouseClicked
 
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
-        int rowIndex = users_tbl.getSelectedRow();
+        int rowIndex = user_tbls.getSelectedRow();
         
         if(rowIndex < 0){
             JOptionPane.showMessageDialog(null, " Please select an Item!!! ");
         }else{
             try{
                 connectDB dbc = new connectDB();
-                TableModel tbl = users_tbl.getModel();
+                TableModel tbl = user_tbls.getModel();
                 ResultSet rs = dbc.getData("SELECT * FROM user WHERE user_id = '" + tbl.getValueAt(rowIndex, 0) + "'");
                 if(rs.next()){
                     JDialog dialog = new JDialog(); // Create a floating window
@@ -308,6 +308,6 @@ public class user extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel user;
-    private javax.swing.JTable users_tbl;
+    private javax.swing.JTable user_tbls;
     // End of variables declaration//GEN-END:variables
 

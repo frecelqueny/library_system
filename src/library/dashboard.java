@@ -122,25 +122,25 @@ public class dashboard extends javax.swing.JFrame {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 0, -1, 97));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Book");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 60, 30));
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 90, 30));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 70, 30));
 
         jPanel4.setBackground(new java.awt.Color(204, 153, 255));
         jPanel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setBackground(new java.awt.Color(204, 153, 255));
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Borrow");
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 70, 30));
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 90, 30));
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 70, 30));
 
         user_button.setBackground(new java.awt.Color(204, 153, 255));
         user_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -156,7 +156,7 @@ public class dashboard extends javax.swing.JFrame {
         });
         user_button.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        user_label.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        user_label.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         user_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         user_label.setText("User");
         user_label.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -164,15 +164,15 @@ public class dashboard extends javax.swing.JFrame {
                 user_labelMouseClicked(evt);
             }
         });
-        user_button.add(user_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 70, 30));
+        user_button.add(user_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 60, 30));
 
-        jPanel2.add(user_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 90, 30));
+        jPanel2.add(user_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 70, 30));
 
         jPanel6.setBackground(new java.awt.Color(204, 153, 255));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setBackground(new java.awt.Color(204, 153, 255));
-        jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Student");
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -180,9 +180,9 @@ public class dashboard extends javax.swing.JFrame {
                 jLabel6MouseClicked(evt);
             }
         });
-        jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 70, 30));
+        jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 60, 30));
 
-        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 90, 30));
+        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 30));
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 110, 420);
