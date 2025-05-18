@@ -7,7 +7,7 @@ package library;
 import Authentication.Registration;
 import Authentication.login;
 import adminInternalFrame.student;
-import adminInternalFrame.user;
+import adminInternalFrame.userForm;
 import config.connectDB;
 import java.awt.Color;
 import java.sql.ResultSet;
@@ -55,6 +55,8 @@ public class dashboard extends javax.swing.JFrame {
         user_label = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        settingsButton = new javax.swing.JLabel();
         mainDesktop = new javax.swing.JDesktopPane();
 
         jMenu3.setText("File");
@@ -184,6 +186,24 @@ public class dashboard extends javax.swing.JFrame {
 
         jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 30));
 
+        jPanel7.setBackground(new java.awt.Color(204, 153, 255));
+        jPanel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        settingsButton.setBackground(new java.awt.Color(204, 153, 255));
+        settingsButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        settingsButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        settingsButton.setText("Settings");
+        settingsButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        settingsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                settingsButtonMouseClicked(evt);
+            }
+        });
+        jPanel7.add(settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
+
+        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 70, -1));
+
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 110, 420);
 
@@ -258,7 +278,7 @@ public class dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_user_buttonMouseClicked
 
     private void user_labelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_labelMouseClicked
-     user us = new user();
+     userForm us = new userForm();
  
     mainDesktop.add(us);
     us.setVisible(true);
@@ -270,6 +290,11 @@ public class dashboard extends javax.swing.JFrame {
     mainDesktop.add(st);
     st.setVisible(true);
     }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void settingsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingsButtonMouseClicked
+        // TODO add your handling code here:
+        mainDesktop.add(new Settings()).setVisible(true);
+    }//GEN-LAST:event_settingsButtonMouseClicked
 
     public static void main(String args[]) {
         
@@ -298,7 +323,9 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JDesktopPane mainDesktop;
+    private javax.swing.JLabel settingsButton;
     private javax.swing.JPanel user_button;
     private javax.swing.JLabel user_label;
     private javax.swing.JLabel user_label1;

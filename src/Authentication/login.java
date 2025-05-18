@@ -198,7 +198,7 @@ public class login extends javax.swing.JFrame {
     
     String hashedPassword = hashPassword(password);
 
-    String sql = "SELECT user_id, password, role FROM users WHERE username = ?";
+    String sql = "SELECT user_id, password, role, status FROM users WHERE username = ?";
 
     try {
         PreparedStatement pst = con.prepareStatement(sql);
@@ -209,6 +209,12 @@ public class login extends javax.swing.JFrame {
             String storedPassword = rs.getString("password");
             String roleFromDB = rs.getString("role");
             String userId = rs.getString("user_id");
+            String status = rs.getString("status");
+            
+            if(status.equals("Pending")) {
+                JOptionPane.showMessageDialog(this, "Your account isn't active yet.", "Login Failed!", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             // TODO: If passwords are hashed, use BCrypt.checkpw(password, storedPassword)
             if (storedPassword.equals(hashedPassword)) {
