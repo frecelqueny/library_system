@@ -6,6 +6,10 @@
 package library;
 
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import config.connectDB;
+import config.session;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,12 +19,14 @@ public class Settings extends javax.swing.JInternalFrame {
 
     private String originalAnswer = "";
     private boolean hasChanges = false;
+    private connectDB db;
 
     /**
      * Creates new form Settings
      */
     public Settings() {
         initComponents();
+        db = new connectDB();
         
         //remove border
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
@@ -33,6 +39,40 @@ public class Settings extends javax.swing.JInternalFrame {
             public void removeUpdate(javax.swing.event.DocumentEvent e) { checkChanges(); }
             public void insertUpdate(javax.swing.event.DocumentEvent e) { checkChanges(); }
         });
+
+        // Load existing security settings
+        loadSecuritySettings();
+    }
+
+    private void loadSecuritySettings() {
+        try {
+            String userId = session.getUserId();
+            if (userId != null) {
+                ResultSet rs = db.getData("SELECT security_question, security_answer FROM users WHERE user_id = '" + userId + "'");
+                if (rs.next()) {
+                    String question = rs.getString("security_question");
+                    String answer = rs.getString("security_answer");
+                    
+                    if (question != null && !question.isEmpty()) {
+                        // Find and select the matching question in the combo box
+                        for (int i = 0; i < securityQuestionComboBox.getItemCount(); i++) {
+                            if (securityQuestionComboBox.getItemAt(i).equals(question)) {
+                                securityQuestionComboBox.setSelectedIndex(i);
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (answer != null && !answer.isEmpty()) {
+                        securityAnswerField.setText(answer);
+                        originalAnswer = answer;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error loading security settings: " + e.getMessage(), 
+                "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void checkChanges() {
@@ -113,11 +153,36 @@ public class Settings extends javax.swing.JInternalFrame {
 
     private void applyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyButtonActionPerformed
         if (hasChanges) {
-            // Update the original answer with the new value
-            originalAnswer = securityAnswerField.getText();
-            hasChanges = false;
-            applyButton.setEnabled(false);
-            // TODO: Add your save logic here
+            String userId = session.getUserId();
+            if (userId == null) {
+                JOptionPane.showMessageDialog(this, "User session not found. Please log in again.", 
+                    "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            String question = (String) securityQuestionComboBox.getSelectedItem();
+            String answer = securityAnswerField.getText();
+
+            if (answer.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Security answer cannot be empty!", 
+                    "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            String query = "UPDATE users SET security_question = '" + question + "', " +
+                         "security_answer = '" + answer + "' " +
+                         "WHERE user_id = '" + userId + "'";
+
+            int result = db.UpdateData(query);
+            if (result == 1) {
+                originalAnswer = answer;
+                hasChanges = false;
+                applyButton.setEnabled(false);
+                JOptionPane.showMessageDialog(this, "Security settings updated successfully!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to update security settings. Please try again.", 
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_applyButtonActionPerformed
 

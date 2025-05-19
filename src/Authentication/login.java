@@ -1,4 +1,3 @@
-
 package Authentication;
 
 import config.connectDB;
@@ -49,6 +48,7 @@ public class login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        forgotPassword = new javax.swing.JLabel();
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Black Grey Minimalist Book Club Logo.png"))); // NOI18N
 
@@ -156,6 +156,15 @@ public class login extends javax.swing.JFrame {
         jPanel1.add(jLabel7);
         jLabel7.setBounds(390, 330, 70, 20);
 
+        forgotPassword.setText("Forgot password?");
+        forgotPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                forgotPasswordMouseClicked(evt);
+            }
+        });
+        jPanel1.add(forgotPassword);
+        forgotPassword.setBounds(660, 330, 120, 16);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -198,7 +207,7 @@ public class login extends javax.swing.JFrame {
     
     String hashedPassword = hashPassword(password);
 
-    String sql = "SELECT user_id, password, role, status FROM users WHERE username = ?";
+    String sql = "SELECT user_id, password, role, status, first_name, last_name, email FROM users WHERE username = ?";
 
     try {
         PreparedStatement pst = con.prepareStatement(sql);
@@ -210,14 +219,19 @@ public class login extends javax.swing.JFrame {
             String roleFromDB = rs.getString("role");
             String userId = rs.getString("user_id");
             String status = rs.getString("status");
+            String firstName = rs.getString("first_name");
+            String lastName = rs.getString("last_name");
+            String email = rs.getString("email");
             
             if(status.equals("Pending")) {
                 JOptionPane.showMessageDialog(this, "Your account isn't active yet.", "Login Failed!", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            // TODO: If passwords are hashed, use BCrypt.checkpw(password, storedPassword)
             if (storedPassword.equals(hashedPassword)) {
+                // Set user session information
+                config.session.setSession(userId, firstName, lastName, username, email);
+                
                 if (roleFromDB.equalsIgnoreCase(roleFromDB)) {
                     JOptionPane.showMessageDialog(this, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
@@ -256,6 +270,12 @@ public class login extends javax.swing.JFrame {
     this.dispose(); // use dispose instead of disable
     }//GEN-LAST:event_jLabel3MouseClicked
 
+    private void forgotPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgotPasswordMouseClicked
+        // TODO add your handling code here:
+        new ForgotPassword().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_forgotPasswordMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -292,6 +312,7 @@ public class login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel forgotPassword;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JDesktopPane jDesktopPane1;

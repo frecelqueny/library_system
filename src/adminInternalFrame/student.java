@@ -29,7 +29,7 @@ public class student extends javax.swing.JInternalFrame {
     public final void displayData(){
         try{
             connectDB dbc = new connectDB();
-            try (ResultSet rs = dbc.getData("SELECT * FROM students")) {
+            try (ResultSet rs = dbc.getData("SELECT * FROM student")) {
                 studentstbl.setModel(DbUtils.resultSetToTableModel(rs));
             }
         }catch(SQLException ex){
