@@ -26,6 +26,11 @@ public class dashboard extends javax.swing.JFrame {
     public dashboard() {
         initComponents();
         
+        userForm us = new userForm();
+ 
+        mainDesktop.add(us);
+        us.setVisible(true);
+        
     }
         Color navcolor = new Color(51,51,51);
         Color headcolor = new Color(0,0,0);

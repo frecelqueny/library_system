@@ -1,4 +1,3 @@
-
 package floatedPage;
 
 import Authentication.login;
@@ -178,7 +177,6 @@ public class addUser extends javax.swing.JPanel {
 
             if (result == 1) {
                 JOptionPane.showMessageDialog(null, "Inserted Successfully!");
-                new login().setVisible(true);  // Redirect to login page after successful registration
 
                 // Close the registration form (JDialog)
                 JDialog parentDialog = (JDialog) SwingUtilities.getWindowAncestor(this);

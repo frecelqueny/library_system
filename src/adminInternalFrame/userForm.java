@@ -24,6 +24,8 @@ import javax.swing.table.TableModel;
  */
 public class userForm extends javax.swing.JInternalFrame {
 
+    private javax.swing.table.DefaultTableModel tableModel;
+
     /**
      * Creates new form userForm
      */
@@ -34,6 +36,84 @@ public class userForm extends javax.swing.JInternalFrame {
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
         BasicInternalFrameUI bi = (BasicInternalFrameUI)this.getUI();
         bi.setNorthPane(null);
+
+        // Initialize table model
+        tableModel = (javax.swing.table.DefaultTableModel) user_tbl.getModel();
+        
+        // Add key listener to search field
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchUsers();
+            }
+        });
+
+        // Load users on startup
+        loadUsers();
+    }
+
+    public void loadUsers() {
+        try {
+            // Clear existing table data
+            tableModel.setRowCount(0);
+            
+            connectDB dbc = new connectDB();
+            ResultSet rs = dbc.getData("SELECT user_id, username, email, role, status FROM users ORDER BY username");
+            
+            while(rs.next()) {
+                Object[] row = {
+                    rs.getInt("user_id"),
+                    rs.getString("username"),
+                    rs.getString("email"),
+                    rs.getString("role"),
+                    rs.getString("status")
+                };
+                tableModel.addRow(row);
+            }
+            
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error loading users: " + ex.getMessage(), 
+                "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void searchUsers() {
+        String searchText = jTextField1.getText().toLowerCase().trim();
+        
+        // If search field is empty or contains only "search...", show all users
+        if (searchText.isEmpty() || searchText.equals("search...")) {
+            loadUsers();
+            return;
+        }
+
+        try {
+            // Clear existing table data
+            tableModel.setRowCount(0);
+            
+            connectDB dbc = new connectDB();
+            String query = "SELECT username, email, role, status FROM users " +
+                          "WHERE LOWER(username) LIKE '"+searchText+"' OR LOWER(email) LIKE '"+searchText+"' OR " +
+                          "LOWER(role) LIKE '"+searchText+"' OR LOWER(status) LIKE '"+searchText+"' " +
+                          "ORDER BY username";
+            
+            String searchPattern = "%" + searchText + "%";
+            ResultSet rs = dbc.getData(query);
+            
+            while(rs.next()) {
+                Object[] row = {
+                    rs.getString("username"),
+                    rs.getString("email"),
+                    rs.getString("role"),
+                    rs.getString("status")
+                };
+                tableModel.addRow(row);
+            }
+            
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error searching users: " + ex.getMessage(), 
+                "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -53,19 +133,21 @@ public class userForm extends javax.swing.JInternalFrame {
         edit = new javax.swing.JButton();
         delete = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        refreshButton = new javax.swing.JButton();
 
         user.setBackground(new java.awt.Color(204, 153, 255));
         user.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         user_tbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "username", "email", "role", "status"
             }
         ));
         jScrollPane1.setViewportView(user_tbl);
@@ -125,6 +207,23 @@ public class userForm extends javax.swing.JInternalFrame {
         });
         user.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 190, -1));
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setText("User");
+        user.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 10, -1, -1));
+
+        refreshButton.setText("Refresh");
+        refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                refreshButtonMouseClicked(evt);
+            }
+        });
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshButtonActionPerformed(evt);
+            }
+        });
+        user.add(refreshButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 370, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,16 +232,18 @@ public class userForm extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 399, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
-        Registration reg = new Registration(true); // Indicate from dashboard
-        reg.setVisible(true);
-        this.dispose();
+//        Registration reg = new Registration(true); // Indicate from dashboard
+//        reg.setVisible(true);
+//        this.dispose();
     }//GEN-LAST:event_addMouseClicked
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
@@ -163,7 +264,7 @@ public class userForm extends javax.swing.JInternalFrame {
             //            return;
             //        }
 
-        String userId = JOptionPane.showInputDialog(this, "Enter the User ID to edit:");
+//        String userId = JOptionPane.showInputDialog(this, "Enter the User ID to edit:");
         //        if (userId != null && !userId.isEmpty()) {
             //            connectDB con = new connectDB();
             //            try {
@@ -211,12 +312,12 @@ public class userForm extends javax.swing.JInternalFrame {
             try{
                 connectDB dbc = new connectDB();
                 TableModel tbl = user_tbl.getModel();
-                ResultSet rs = dbc.getData("SELECT * FROM user WHERE user_id = '" + tbl.getValueAt(rowIndex, 0) + "'");
+                ResultSet rs = dbc.getData("SELECT * FROM users WHERE user_id = '" + tbl.getValueAt(rowIndex, 0) + "'");
                 if(rs.next()){
                     JDialog dialog = new JDialog(); // Create a floating window
                     updateUser newPanel = new updateUser();
 
-                    newPanel.id.setText(""+rs.getString("id"));
+                    newPanel.id.setText(""+rs.getString("user_id"));
                     newPanel.fn.setText(""+rs.getString("first_name"));
                     newPanel.ln.setText(""+rs.getString("last_name"));
                     newPanel.un.setText(""+rs.getString("username"));
@@ -252,23 +353,28 @@ public class userForm extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_editActionPerformed
 
     private void deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteMouseClicked
-        String userId = JOptionPane.showInputDialog(this, "Enter the User ID to delete:");
+        int rowIndex = user_tbl.getSelectedRow();
+        
+        if(rowIndex < 0){
+            JOptionPane.showMessageDialog(null, " Please select an Item!!! ");
+            return;
+        }
+        
+        TableModel tbl = user_tbl.getModel();
+        
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete user ID " + tbl.getValueAt(rowIndex, 0) + "?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
 
-        if (userId != null && !userId.isEmpty()) {
-            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete user ID " + userId + "?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                connectDB con = new connectDB();
-                int result = con.UpdateData("DELETE FROM users WHERE user_id = " + userId);
-
-                if (result == 1) {
-                    JOptionPane.showMessageDialog(this, "User deleted successfully!");
-                } else {
-                    JOptionPane.showMessageDialog(this, "User ID not found or deletion failed.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+        if (confirm == JOptionPane.YES_OPTION) {
+            connectDB con = new connectDB();
+            
+            int result = con.UpdateData("DELETE FROM users WHERE user_id = " + tbl.getValueAt(rowIndex, 0));
+            
+            if (result == 1) {
+                JOptionPane.showMessageDialog(this, "User deleted successfully!");
+                loadUsers();
+            } else {
+                JOptionPane.showMessageDialog(this, "User ID not found or deletion failed.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Please enter a valid User ID.");
         }
     }//GEN-LAST:event_deleteMouseClicked
 
@@ -276,18 +382,28 @@ public class userForm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_refreshButtonActionPerformed
 
+    private void refreshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshButtonMouseClicked
+        // TODO add your handling code here:
+        loadUsers();
+    }//GEN-LAST:event_refreshButtonMouseClicked
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {
+        searchUsers();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
     private javax.swing.JButton delete;
     private javax.swing.JButton edit;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton refreshButton;
     private javax.swing.JPanel user;
     private javax.swing.JTable user_tbl;
     // End of variables declaration//GEN-END:variables

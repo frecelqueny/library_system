@@ -1,4 +1,3 @@
-
 package floatedPage;
 
 import config.connectDB;
@@ -35,8 +34,6 @@ public class updateUser extends javax.swing.JPanel {
         rl = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         status = new javax.swing.JComboBox<>();
-        pw = new javax.swing.JPasswordField();
-        cpw = new javax.swing.JPasswordField();
 
         jPanel1.setBackground(new java.awt.Color(204, 102, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -86,6 +83,8 @@ public class updateUser extends javax.swing.JPanel {
             }
         });
         jPanel1.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 405, 86, 31));
+
+        id.setEditable(false);
         jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 131, 130, 31));
         jPanel1.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 131, 130, 31));
         jPanel1.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 203, 130, 31));
@@ -100,14 +99,14 @@ public class updateUser extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Role");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 127, 19));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 260, 127, 19));
 
         rl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
-        jPanel1.add(rl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
+        jPanel1.add(rl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
 
-        jLabel12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel12.setText("Status");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, -1, -1));
 
         status.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Approved", "Pending" }));
@@ -117,9 +116,7 @@ public class updateUser extends javax.swing.JPanel {
                 statusActionPerformed(evt);
             }
         });
-        jPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 140, 30));
-        jPanel1.add(pw, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 130, 20));
-        jPanel1.add(cpw, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 130, 20));
+        jPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 140, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -141,35 +138,28 @@ public class updateUser extends javax.swing.JPanel {
         String lastName = ln.getText();
         String username = un.getText();
         String email = em.getText();
-        String password = pw.getText();
-        String confirmPassword = cpw.getText();
 
-        if (firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+        if (firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || email.isEmpty()) {
             JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        if (!password.equals(confirmPassword)) {
-            JOptionPane.showMessageDialog(this, "Passwords do not match!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        String HashedPassword = HashUtil.sha256(password);
         connectDB con = new connectDB();
         int result = con.UpdateData("UPDATE users SET "
             + "first_name = '" + firstName + "', "
             + "last_name = '" + lastName + "', "
             + "username = '" + username + "', "
-            + "email = '" + email + "', "
-            + "password = HashedPassword "
-            + "WHERE user_id = " + userId);
+            + "email = '" + email + "' "
+            + "WHERE user_id = " + Integer.parseInt(userId));
 
         if (result == 1) {
             JOptionPane.showMessageDialog(this, "User updated successfully!");
+
             // Close the registration form (JDialog)
-                    JDialog parentDialog = (JDialog) SwingUtilities.getWindowAncestor(this);
-                    if (parentDialog != null) {
-                        parentDialog.dispose();  // Closes the JDialog
-                    }
+            JDialog parentDialog = (JDialog) SwingUtilities.getWindowAncestor(this);
+            if (parentDialog != null) {
+                parentDialog.dispose();  // Closes the JDialog
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Update failed. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -190,7 +180,6 @@ public class updateUser extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancel;
-    private javax.swing.JPasswordField cpw;
     public javax.swing.JTextField em;
     public javax.swing.JTextField fn;
     public javax.swing.JTextField id;
@@ -204,7 +193,6 @@ public class updateUser extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JTextField ln;
-    private javax.swing.JPasswordField pw;
     public javax.swing.JComboBox<String> rl;
     private javax.swing.JButton save;
     public javax.swing.JComboBox<String> status;

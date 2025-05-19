@@ -10,6 +10,7 @@ import floatedPage.addUser;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JDialog;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -24,6 +25,11 @@ public class student extends javax.swing.JInternalFrame {
     public student() {
         initComponents();
         displayData();
+        
+        //remove border
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
+        BasicInternalFrameUI bi = (BasicInternalFrameUI)this.getUI();
+        bi.setNorthPane(null);
     }
     
     public final void displayData(){

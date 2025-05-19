@@ -5,6 +5,8 @@
  */
 package adminInternalFrame;
 
+import javax.swing.plaf.basic.BasicInternalFrameUI;
+
 /**
  *
  * @author admin
@@ -16,6 +18,11 @@ public class borrow extends javax.swing.JInternalFrame {
      */
     public borrow() {
         initComponents();
+        
+        //remove border
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
+        BasicInternalFrameUI bi = (BasicInternalFrameUI)this.getUI();
+        bi.setNorthPane(null);
     }
 
     /**

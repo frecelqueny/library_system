@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2025 at 03:53 PM
+-- Generation Time: May 19, 2025 at 12:19 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -100,7 +100,7 @@ INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password
 (2, 'ash', 'balb', 'admin', '1234', 'ash@gmail.com', 'User', '', '', ''),
 (3, 'john', 'phil', 'jampil', '1234', 'john@Gmail.com', 'Admin', '', '', ''),
 (4, 'queny', 'waskin', 'bebs', 'Waskin123!', 'quenyw@gmail.com', 'User', '', '', ''),
-(5, 'Mark', 'Cortes', 'markj', '0c4b437649a3795150ab30d3b6fcdf426d2d569177d02feb98f0759ceec124c0', 'markj@gmail.com', 'Admin', 'Active', '', '');
+(5, 'Mark', 'Cortes', 'markj', '2c0968dabe58c67d17a07f066a9e5d9cc0ffe914f12da60aa62acc1f49bfd30c', 'markj@gmail.com', 'Admin', 'Active', 'What was the name of your first pet?', 'lorenzo');
 
 --
 -- Indexes for dumped tables
