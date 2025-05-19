@@ -205,7 +205,7 @@ public class userForm extends javax.swing.JInternalFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
-        user.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 190, -1));
+        user.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 190, -1));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("User");

@@ -45,6 +45,7 @@ public class connectDB {
         return stmt.executeUpdate(query);
     } catch (Exception e) {
         System.out.println("Error: " + e.getMessage());
+        e.printStackTrace();
         return 0;
     }
 }

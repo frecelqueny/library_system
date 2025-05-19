@@ -6,6 +6,8 @@
 package library;
 import Authentication.Registration;
 import Authentication.login;
+import adminInternalFrame.book;
+import adminInternalFrame.borrow;
 import adminInternalFrame.student;
 import adminInternalFrame.userForm;
 import config.connectDB;
@@ -132,6 +134,11 @@ public class dashboard extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Book");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 70, 30));
@@ -145,6 +152,11 @@ public class dashboard extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Borrow");
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 70, 30));
@@ -300,6 +312,16 @@ public class dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         mainDesktop.add(new Settings()).setVisible(true);
     }//GEN-LAST:event_settingsButtonMouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        // TODO add your handling code here:
+        mainDesktop.add(new book()).setVisible(true);
+    }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        // TODO add your handling code here:
+        mainDesktop.add(new borrow()).setVisible(true);
+    }//GEN-LAST:event_jLabel3MouseClicked
 
     public static void main(String args[]) {
         

@@ -18,15 +18,22 @@
             <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/adminInternalFrame/student.java</file>
             <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/library/UpdateUser.java</file>
             <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/floatedPage/addUser.java</file>
+            <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/floatedPage/addStudent.java</file>
             <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/Authentication/login.java</file>
             <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/adminInternalFrame/userForm.java</file>
             <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/Authentication/Registration.java</file>
             <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/library/dashboardbook.java</file>
+            <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/floatedPage/editBook.java</file>
+            <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/floatedPage/addBook.java</file>
+            <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/floatedPage/addBorrow.java</file>
             <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/adminInternalFrame/borrow.java</file>
             <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/library/dashboard.java</file>
             <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/adminInternalFrame/book.java</file>
+            <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/floatedPage/editStudent.java</file>
             <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/floatedPage/updateUser.java</file>
             <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/library/dashboardstaff.java</file>
+            <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/floatedPage/editBorrow.java</file>
+            <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/config/connectDB.java</file>
             <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/library/Settings.java</file>
             <file>file:/C:/Users/markj/Documents/GitHub/library_system/src/library/dashboardborrow.java</file>
         </group>
