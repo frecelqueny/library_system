@@ -51,7 +51,7 @@ public class addBorrow extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        studentId = new javax.swing.JTextField();
+        studentsid = new javax.swing.JTextField();
         bookId = new javax.swing.JTextField();
         borrowDate = new javax.swing.JTextField();
         addButton = new javax.swing.JButton();
@@ -68,20 +68,26 @@ public class addBorrow extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Student ID");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 127, 19));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 100, 19));
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Book ID");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 127, 19));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 80, 19));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Borrow Date");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 127, 19));
-        jPanel1.add(studentId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 280, 31));
-        jPanel1.add(bookId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 280, 31));
-        jPanel1.add(borrowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 280, 31));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 110, 19));
+
+        studentsid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentsidActionPerformed(evt);
+            }
+        });
+        jPanel1.add(studentsid, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 280, 31));
+        jPanel1.add(bookId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 280, 31));
+        jPanel1.add(borrowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 280, 31));
 
         addButton.setText("Add");
         addButton.addActionListener(new java.awt.event.ActionListener() {
@@ -89,7 +95,7 @@ public class addBorrow extends javax.swing.JPanel {
                 addButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 90, -1));
+        jPanel1.add(addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 90, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -99,14 +105,14 @@ public class addBorrow extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
         try {
-            String sid = this.studentId.getText();
+            String sid = this.studentsid.getText();
             String bid = this.bookId.getText();
             String bdate = this.borrowDate.getText();
 
@@ -131,9 +137,9 @@ public class addBorrow extends javax.swing.JPanel {
                 return;
             }
 
-            // Add borrow record
             String borrowQuery = "INSERT INTO borrow (student_id, book_id, borrow_date, status) " +
-                               "VALUES (" + Integer.parseInt(sid) + ", " + Integer.parseInt(sid) + ", '" + bdate + "', 'Borrowed')";
+                     "VALUES (" + Integer.parseInt(sid) + ", " + Integer.parseInt(bid) + ", '" + bdate + "', 'Borrowed')";
+
             
             int borrowResult = db.UpdateData(borrowQuery);
             
@@ -159,6 +165,10 @@ public class addBorrow extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }//GEN-LAST:event_addButtonActionPerformed
+
+    private void studentsidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentsidActionPerformed
+        
+    }//GEN-LAST:event_studentsidActionPerformed
 
     private void borrowButtonMouseClicked(java.awt.event.MouseEvent evt) {
 //        try {
@@ -216,7 +226,7 @@ public class addBorrow extends javax.swing.JPanel {
     }
 
     private void clearFields() {
-        studentId.setText("");
+        studentsid.setText("");
         bookId.setText("");
         borrowDate.setText("");
     }
@@ -230,6 +240,6 @@ public class addBorrow extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField studentId;
+    public javax.swing.JTextField studentsid;
     // End of variables declaration//GEN-END:variables
 }

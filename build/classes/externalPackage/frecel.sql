@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2025 at 02:43 PM
+-- Generation Time: May 19, 2025 at 07:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -30,33 +30,43 @@ SET time_zone = "+00:00";
 CREATE TABLE `book` (
   `ID` int(11) NOT NULL,
   `Title` varchar(200) NOT NULL,
+  `author` varchar(255) NOT NULL,
   `Category` varchar(200) NOT NULL,
   `Status` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `book`
+--
+
+INSERT INTO `book` (`ID`, `Title`, `author`, `Category`, `Status`) VALUES
+(1, 'The Lord of the Rings', 'J.R.R. Tolkien', 'Fantasy', 'Available'),
+(2, '1984', 'George Orwell', 'Dystopian', 'Available'),
+(3, 'The Great Gatsby', 'F. Scott Fitzgerald', 'Classic Literature', 'Available'),
+(4, 'Harry Potter and the Sorcerer\'s Stone', 'J.K. Rowling', 'Fantasy', 'Available'),
+(5, 'And Then There Were None', 'Agatha Christie', 'Mystery', 'Available');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `librarian`
+-- Table structure for table `borrow`
 --
 
-CREATE TABLE `librarian` (
-  `ID` int(11) NOT NULL,
-  `Username` varchar(200) NOT NULL,
-  `Password` varchar(200) NOT NULL
+CREATE TABLE `borrow` (
+  `id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `borrow_date` date NOT NULL,
+  `return_date` date DEFAULT NULL,
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `staff`
+-- Dumping data for table `borrow`
 --
 
-CREATE TABLE `staff` (
-  `ID` int(11) NOT NULL,
-  `Username` varchar(200) NOT NULL,
-  `Password` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `borrow` (`id`, `book_id`, `student_id`, `borrow_date`, `return_date`, `status`) VALUES
+(15, 1, 1, '2025-05-20', '2025-05-20', 'Returned');
 
 -- --------------------------------------------------------
 
@@ -71,6 +81,17 @@ CREATE TABLE `student` (
   `Year` int(200) NOT NULL,
   `Section` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `student`
+--
+
+INSERT INTO `student` (`ID`, `Name`, `Program`, `Year`, `Section`) VALUES
+(1, 'Maria Santos', 'BS Computer Science', 1, 'A'),
+(2, 'Juan Dela Cruz', 'BS Information Tech', 2, 'B'),
+(3, 'Ana Lopez', 'BS Information Sys', 3, 'C'),
+(4, 'Carlo Reyes', 'BS Computer Science', 4, 'A'),
+(5, 'Liza Montemayor', 'BS Information Tech', 1, 'B');
 
 -- --------------------------------------------------------
 
@@ -114,16 +135,12 @@ ALTER TABLE `book`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `librarian`
+-- Indexes for table `borrow`
 --
-ALTER TABLE `librarian`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `staff`
---
-ALTER TABLE `staff`
-  ADD PRIMARY KEY (`ID`);
+ALTER TABLE `borrow`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `book_id` (`book_id`),
+  ADD KEY `student_id` (`student_id`);
 
 --
 -- Indexes for table `student`
@@ -145,31 +162,36 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `librarian`
+-- AUTO_INCREMENT for table `borrow`
 --
-ALTER TABLE `librarian`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `staff`
---
-ALTER TABLE `staff`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `borrow`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `user_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `borrow`
+--
+ALTER TABLE `borrow`
+  ADD CONSTRAINT `borrow_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`ID`),
+  ADD CONSTRAINT `borrow_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `student` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -141,54 +141,6 @@ public class borrow extends javax.swing.JInternalFrame {
         displayData();
     }
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {
-        int row = borrowtbl.getSelectedRow();
-        if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a record to return");
-            return;
-        }
-
-        String borrowId = borrowtbl.getValueAt(row, 0).toString();
-        String status = borrowtbl.getValueAt(row, 5).toString();
-        String bookId = borrowtbl.getValueAt(row, 2).toString();
-
-        if (status.equals("Returned")) {
-            JOptionPane.showMessageDialog(this, "This book is already returned");
-            return;
-        }
-
-        int confirm = JOptionPane.showConfirmDialog(this, 
-            "Are you sure you want to return this book?", 
-            "Confirm Return", 
-            JOptionPane.YES_NO_OPTION);
-
-        if (confirm == JOptionPane.YES_OPTION) {
-            try {
-                // Update borrow record
-                String borrowQuery = "UPDATE borrow SET status = 'Returned', return_date = CURDATE() WHERE ID = " + Integer.parseInt(borrowId);
-                int borrowResult = db.UpdateData(borrowQuery);
-
-                if (borrowResult > 0) {
-                    // Update book status
-                    String bookQuery = "UPDATE book SET Status = 'Available' WHERE ID = " + Integer.parseInt(bookId);
-                    
-                    int bookResult = db.UpdateData(bookQuery);
-
-                    if (bookResult > 0) {
-                        JOptionPane.showMessageDialog(this, "Book returned successfully");
-                        displayData(); // Refresh the table
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Error updating book status");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Error updating borrow record");
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage());
-            }
-        }
-    }
-
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {
         int rowIndex = borrowtbl.getSelectedRow();
         
@@ -258,6 +210,27 @@ public class borrow extends javax.swing.JInternalFrame {
         searchBorrows();
     }
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        int selectedRow = borrowtbl.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a record to print");
+            return;
+        }
+
+        // Get data from the selected row
+        String borrowId = borrowtbl.getValueAt(selectedRow, 0).toString();
+        String studentName = borrowtbl.getValueAt(selectedRow, 1).toString();
+        String bookTitle = borrowtbl.getValueAt(selectedRow, 2).toString();
+        String borrowDate = borrowtbl.getValueAt(selectedRow, 3).toString();
+        String returnDate = borrowtbl.getValueAt(selectedRow, 4).toString();
+
+        // Create and show the PrintReceipt form
+        floatedPage.PrintReceipt printReceipt = new floatedPage.PrintReceipt(
+            borrowId, studentName, bookTitle, borrowDate, returnDate);
+        printReceipt.setLocationRelativeTo(this);
+        printReceipt.setVisible(true);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -276,6 +249,7 @@ public class borrow extends javax.swing.JInternalFrame {
         refreshButton = new javax.swing.JButton();
         searchField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(204, 153, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -339,6 +313,24 @@ public class borrow extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Borrow Records");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, -1, -1));
+
+        jButton2.setText("Print");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jButton2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jButton2KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -416,9 +408,18 @@ public class borrow extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_returnButtonActionPerformed
 
+    private void jButton2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton2KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2KeyTyped
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+
+    }//GEN-LAST:event_jButton2MouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable borrowtbl;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

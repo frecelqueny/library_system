@@ -141,7 +141,7 @@ public class dashboard extends javax.swing.JFrame {
         });
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 70, 30));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 80, 30));
 
         jPanel4.setBackground(new java.awt.Color(204, 153, 255));
         jPanel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -157,9 +157,9 @@ public class dashboard extends javax.swing.JFrame {
                 jLabel3MouseClicked(evt);
             }
         });
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 60, 30));
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 70, 30));
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 80, 30));
 
         user_button.setBackground(new java.awt.Color(204, 153, 255));
         user_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -185,7 +185,7 @@ public class dashboard extends javax.swing.JFrame {
         });
         user_button.add(user_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 60, 30));
 
-        jPanel2.add(user_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 70, 30));
+        jPanel2.add(user_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 80, 30));
 
         jPanel6.setBackground(new java.awt.Color(204, 153, 255));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -201,7 +201,7 @@ public class dashboard extends javax.swing.JFrame {
         });
         jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 60, 30));
 
-        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 30));
+        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 80, 30));
 
         jPanel7.setBackground(new java.awt.Color(204, 153, 255));
         jPanel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -217,9 +217,9 @@ public class dashboard extends javax.swing.JFrame {
                 settingsButtonMouseClicked(evt);
             }
         });
-        jPanel7.add(settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
+        jPanel7.add(settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 60, 30));
 
-        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 70, -1));
+        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 80, -1));
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 110, 420);
