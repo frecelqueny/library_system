@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package adminInternalFrame;
+package staffInternalPage;
+
 
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
@@ -302,7 +303,6 @@ public class book extends javax.swing.JInternalFrame {
         searchField = new javax.swing.JTextField();
         addButton = new javax.swing.JButton();
         editButton = new javax.swing.JButton();
-        deleteButton = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(204, 153, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(680, 510));
@@ -365,14 +365,6 @@ public class book extends javax.swing.JInternalFrame {
         });
         jPanel1.add(editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 470, 70, -1));
 
-        deleteButton.setText("Delete");
-        deleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                deleteButtonMouseClicked(evt);
-            }
-        });
-        jPanel1.add(deleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 470, 70, -1));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -396,7 +388,6 @@ public class book extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JTable bookstbl;
-    public javax.swing.JButton deleteButton;
     private javax.swing.JButton editButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

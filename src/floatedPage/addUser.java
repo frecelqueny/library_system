@@ -4,7 +4,9 @@ import Authentication.login;
 import config.connectDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -162,35 +164,49 @@ public class addUser extends javax.swing.JPanel {
         String insertQuery = "INSERT INTO users (first_name, last_name, username, email, password, role) "
                              + "VALUES(?, ?, ?, ?, ?, ?)"; // Using placeholders for PreparedStatement
 
-        try (Connection conn = con.getConnection(); // Assuming connectDB.getConnection() gives a valid DB connection
-             PreparedStatement stmt = conn.prepareStatement(insertQuery)) {
+        try (Connection conn = con.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
 
-            stmt.setString(1, fn.getText());
-            stmt.setString(2, ln.getText());
-            stmt.setString(3, un.getText());
-            stmt.setString(4, em.getText());
-            stmt.setString(5, hashedPassword); // Insert the hashed password
-            stmt.setString(6, rl.getSelectedItem().toString()); // Assuming you have a role combobox
+           stmt.setString(1, fn.getText());
+           stmt.setString(2, ln.getText());
+           stmt.setString(3, un.getText());
+           stmt.setString(4, em.getText());
+           stmt.setString(5, hashedPassword);
+           stmt.setString(6, rl.getSelectedItem().toString());
 
-            // Execute the insert operation
-            int result = stmt.executeUpdate();
+           int result = stmt.executeUpdate();
 
-            if (result == 1) {
-                JOptionPane.showMessageDialog(null, "Inserted Successfully!");
+           if (result == 1) {
+               // Get the generated user_id for the new user
+               ResultSet generatedKeys = stmt.getGeneratedKeys();
+               int newUserId = 0;
+               if (generatedKeys.next()) {
+                   newUserId = generatedKeys.getInt(1);
+               }
 
-                // Close the registration form (JDialog)
-                JDialog parentDialog = (JDialog) SwingUtilities.getWindowAncestor(this);
-                if (parentDialog != null) {
-                    parentDialog.dispose();  // Close the current JDialog
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Registration failed. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (SQLException e) {
-            // Handle any SQL errors
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Database error occurred. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+               JOptionPane.showMessageDialog(null, "Inserted Successfully!");
+
+               // Log user registration
+               con.insertLog(newUserId, "New user registered: " + un.getText());
+
+               // Close the registration form
+               JDialog parentDialog = (JDialog) SwingUtilities.getWindowAncestor(this);
+               if (parentDialog != null) {
+                   parentDialog.dispose();
+               }
+           } else {
+               JOptionPane.showMessageDialog(null, "Registration failed. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+
+               // Log failed registration attempt (userId unknown, use 0)
+               con.insertLog(0, "Failed registration attempt for username: " + un.getText());
+           }
+       } catch (SQLException e) {
+           e.printStackTrace();
+           JOptionPane.showMessageDialog(null, "Database error occurred. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+
+           // Log database error during registration
+           con.insertLog(0, "Database error during registration for username: " + un.getText() + " - " + e.getMessage());
+       }
     }//GEN-LAST:event_saveMouseClicked
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed

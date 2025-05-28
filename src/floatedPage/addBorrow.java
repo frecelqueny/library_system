@@ -132,7 +132,7 @@ public class addBorrow extends javax.swing.JPanel {
             // Check if book exists and is available
             String bookQuery = "SELECT * FROM book WHERE ID = " + Integer.parseInt(bid) + " AND Status = 'Available'";
             ResultSet bookRs = db.getData(bookQuery);
-            if (!bookRs.next()) {
+            if (!bookRs.next()) {   
                 JOptionPane.showMessageDialog(this, "Book not found or not available");
                 return;
             }

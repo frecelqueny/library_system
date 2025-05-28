@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package adminInternalFrame;
+package staffInternalPage;
 
+import adminInternalFrame.*;
 import config.connectDB;
 import floatedPage.addStudent;
 import floatedPage.addUser;
@@ -123,7 +124,6 @@ public class student extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         studentstbl = new javax.swing.JTable();
@@ -151,14 +151,6 @@ public class student extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 470, 70, -1));
-
-        jButton3.setText("Delete");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
-            }
-        });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 470, 70, -1));
 
         studentstbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -212,45 +204,6 @@ public class student extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        int rowIndex = studentstbl.getSelectedRow();
-
-if (rowIndex < 0) {
-    javax.swing.JOptionPane.showMessageDialog(null, "Please select a student to delete!");
-    return;
-}
-
-javax.swing.table.TableModel tbl = studentstbl.getModel();
-int confirm = javax.swing.JOptionPane.showConfirmDialog(this,
-    "Are you sure you want to delete student ID " + tbl.getValueAt(rowIndex, 0) + "?",
-    "Confirm Delete",
-    javax.swing.JOptionPane.YES_NO_OPTION);
-
-if (confirm == javax.swing.JOptionPane.YES_OPTION) {
-    connectDB dbc = new connectDB();
-    String studentId = tbl.getValueAt(rowIndex, 0).toString();
-    String studentName = tbl.getValueAt(rowIndex, 1).toString(); // adjust based on column index
-
-    String query = "DELETE FROM student WHERE id = " + studentId;
-
-    int result = dbc.UpdateData(query); // MySQL error code for FK constraint
-    if (result == 1) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Student deleted successfully!");
-        displayData();
-        
-        // ✅ Log the deletion
-        int userId = Integer.parseInt(config.session.getUserId());
-        String action = "Deleted student: " + studentName + " (ID: " + studentId + ")";
-        dbc.insertLog(userId, action);
-        
-    } else {
-        javax.swing.JOptionPane.showMessageDialog(this, "Student not found or deletion failed.",
-                "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-    }
-}
-
-    }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         javax.swing.JDialog dialog = new javax.swing.JDialog();
@@ -319,7 +272,6 @@ if (confirm == javax.swing.JOptionPane.YES_OPTION) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

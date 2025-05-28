@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package adminInternalFrame;
 
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -19,11 +15,9 @@ import config.connectDB;
  */
 public class borrow extends javax.swing.JInternalFrame {
     private connectDB db;
+    
     private javax.swing.table.DefaultTableModel tableModel;
 
-    /**
-     * Creates new form borrow
-     */
     public borrow() {
         initComponents();
         
@@ -50,37 +44,36 @@ public class borrow extends javax.swing.JInternalFrame {
     }
     
     public void displayData() {
-        try {
-            // Clear existing table data
-            tableModel.setRowCount(0);
-            
-            String query = "SELECT b.id, s.Name as student_name, bk.Title as book_title, " +
-                          "b.borrow_date, b.return_date, b.status " +
-                          "FROM borrow b " +
-                          "INNER JOIN student s ON b.student_id = s.ID " +
-                          "INNER JOIN book bk ON b.book_id = bk.ID " +
-                          "ORDER BY b.borrow_date DESC";
-            
-            ResultSet rs = db.getData(query);
-            
-            while(rs.next()) {
-                Object[] row = {
-                    rs.getString("id"),
-                    rs.getString("student_name"),
-                    rs.getString("book_title"),
-                    rs.getString("borrow_date"),
-                    rs.getString("return_date"),
-                    rs.getString("status")
-                };
-                tableModel.addRow(row);
-            }
-            
-            rs.close();
-        } catch(SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error loading borrow records: " + ex.getMessage(), 
-                "Database Error", JOptionPane.ERROR_MESSAGE);
+    String query = "SELECT b.id, s.Name as student_name, bk.Title as book_title, " +
+                   "b.borrow_date, b.return_date, b.status " +
+                   "FROM borrow b " +
+                   "INNER JOIN student s ON b.student_id = s.ID " +
+                   "INNER JOIN book bk ON b.book_id = bk.ID " +
+                   "ORDER BY b.borrow_date DESC";
+
+    try (Statement stmt = db.getConnection().createStatement();
+         ResultSet rs = stmt.executeQuery(query)) {
+
+        // Clear existing table data
+        tableModel.setRowCount(0);
+
+        while(rs.next()) {
+            Object[] row = {
+                rs.getString("id"),
+                rs.getString("student_name"),
+                rs.getString("book_title"),
+                rs.getString("borrow_date"),
+                rs.getString("return_date"),
+                rs.getString("status")
+            };
+            tableModel.addRow(row);
         }
+    } catch(SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Error loading borrow records: " + ex.getMessage(),
+            "Database Error", JOptionPane.ERROR_MESSAGE);
     }
+}
+
 
     private void searchBorrows() {
         String searchText = searchField.getText().toLowerCase().trim();
@@ -129,10 +122,10 @@ public class borrow extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         javax.swing.JDialog dialog = new javax.swing.JDialog();
-        floatedPage.addBorrow add = new floatedPage.addBorrow();
+        floatedPage.addBorrows add = new floatedPage.addBorrows();
         
         dialog.add(add);
-        dialog.setSize(325, 340);
+        dialog.pack();
         dialog.setLocationRelativeTo(null);
         dialog.setModal(true);
         dialog.setVisible(true);
@@ -142,64 +135,75 @@ public class borrow extends javax.swing.JInternalFrame {
     }
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {
-        int rowIndex = borrowtbl.getSelectedRow();
-        
-        if(rowIndex < 0) {
-            JOptionPane.showMessageDialog(null, "Please select a record to delete!");
-            return;
-        }
-        
-        javax.swing.table.TableModel tbl = borrowtbl.getModel();
-        String borrowId = tbl.getValueAt(rowIndex, 0).toString();
-        String status = tbl.getValueAt(rowIndex, 5).toString();
-        
-        if (!status.equals("Returned")) {
-            JOptionPane.showMessageDialog(this, "Cannot delete an active borrow record. Please return the book first.");
-            return;
-        }
-        
-        int confirm = JOptionPane.showConfirmDialog(this, 
-            "Are you sure you want to delete borrow record ID " + borrowId + "?", 
-            "Confirm Delete", 
-            JOptionPane.YES_NO_OPTION);
+       int rowIndex = borrowtbl.getSelectedRow();
 
-        if (confirm == JOptionPane.YES_OPTION) {
-            try {
-                // Get book ID before deleting the borrow record
-                String bookQuery = "SELECT book_id FROM borrow WHERE id = " + Integer.parseInt(borrowId);
-                ResultSet rs = db.getData(bookQuery);
-                String bookId = null;
-                
-                if (rs.next()) {
-                    bookId = rs.getString("book_id");
-                }
-                
-                // Delete borrow record
-                String query = "DELETE FROM borrow WHERE id = " + Integer.parseInt(borrowId);
-                int result = db.UpdateData(query);
-                
-                if (result > 0) {
-                    // Update book status to Available
-                    if (bookId != null) {
-                        String updateBookQuery = "UPDATE book SET Status = 'Available' WHERE ID = " + Integer.parseInt(bookId);
-                        int bookResult = db.UpdateData(updateBookQuery);
-                        
-                        if (bookResult > 0) {
-                            JOptionPane.showMessageDialog(this, "Borrow record and book status updated successfully!");
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Borrow record deleted but failed to update book status.");
-                        }
-                    }
-                    displayData();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Record not found or deletion failed.", 
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), 
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            }
+if (rowIndex < 0) {
+    JOptionPane.showMessageDialog(null, "Please select a record to delete!");
+    return;
+}
+
+javax.swing.table.TableModel tbl = borrowtbl.getModel();
+String borrowId = tbl.getValueAt(rowIndex, 0).toString();
+String status = tbl.getValueAt(rowIndex, 5).toString();
+
+if (!status.equals("Returned")) {
+    JOptionPane.showMessageDialog(this, "Cannot delete an active borrow record. Please return the book first.");
+    return;
+}
+
+int confirm = JOptionPane.showConfirmDialog(this, 
+    "Are you sure you want to delete borrow record ID " + borrowId + "?", 
+    "Confirm Delete", 
+    JOptionPane.YES_NO_OPTION);
+
+if (confirm == JOptionPane.YES_OPTION) {
+    try {
+        // Get book ID before deleting the borrow record
+        String bookQuery = "SELECT book_id FROM borrow WHERE id = " + Integer.parseInt(borrowId);
+        ResultSet rs = db.getData(bookQuery);
+        String bookId = null;
+
+        if (rs.next()) {
+            bookId = rs.getString("book_id");
         }
+
+        // Delete borrow record
+        String query = "DELETE FROM borrow WHERE id = " + Integer.parseInt(borrowId);
+        int result = db.UpdateData(query);
+
+        if (result > 0) {
+            boolean bookUpdated = false;
+
+            // Update book status to Available
+            if (bookId != null) {
+                String updateBookQuery = "UPDATE book SET Status = 'Available' WHERE ID = " + Integer.parseInt(bookId);
+                int bookResult = db.UpdateData(updateBookQuery);
+                bookUpdated = (bookResult > 0);
+            }
+
+            // Show appropriate message
+            if (bookUpdated) {
+                JOptionPane.showMessageDialog(this, "Borrow record and book status updated successfully!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Borrow record deleted but failed to update book status.");
+            }
+
+            // ✅ Log the deletion
+            int userId = Integer.parseInt(config.session.getUserId());
+            String action = "Deleted borrow record ID: " + borrowId + " (Book ID: " + bookId + ")";
+            db.insertLog(userId, action);
+
+            displayData();
+        } else {
+            JOptionPane.showMessageDialog(this, "Record not found or deletion failed.", 
+                "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), 
+            "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
     }
 
     private void refreshButtonMouseClicked(java.awt.event.MouseEvent evt) {
@@ -231,11 +235,7 @@ public class borrow extends javax.swing.JInternalFrame {
         printReceipt.setVisible(true);
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -252,6 +252,7 @@ public class borrow extends javax.swing.JInternalFrame {
         jButton2 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(204, 153, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(680, 510));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -261,7 +262,7 @@ public class borrow extends javax.swing.JInternalFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 80, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, 80, -1));
 
         returnButton.setText("Return");
         returnButton.addActionListener(new java.awt.event.ActionListener() {
@@ -269,7 +270,7 @@ public class borrow extends javax.swing.JInternalFrame {
                 returnButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(returnButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 80, -1));
+        jPanel1.add(returnButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 470, 80, -1));
 
         jButton3.setText("Delete");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -277,7 +278,7 @@ public class borrow extends javax.swing.JInternalFrame {
                 jButton3MouseClicked(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, 70, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 470, 70, -1));
 
         borrowtbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -292,7 +293,7 @@ public class borrow extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(borrowtbl);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 610, 300));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 640, 390));
 
         refreshButton.setText("Refresh");
         refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -300,7 +301,7 @@ public class borrow extends javax.swing.JInternalFrame {
                 refreshButtonMouseClicked(evt);
             }
         });
-        jPanel1.add(refreshButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 370, -1, -1));
+        jPanel1.add(refreshButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 470, -1, -1));
 
         searchField.setText("search...");
         searchField.addActionListener(new java.awt.event.ActionListener() {
@@ -308,11 +309,11 @@ public class borrow extends javax.swing.JInternalFrame {
                 searchFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 190, -1));
+        jPanel1.add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 190, -1));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Borrow Records");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, -1, -1));
 
         jButton2.setText("Print");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -330,19 +331,19 @@ public class borrow extends javax.swing.JInternalFrame {
                 jButton2KeyTyped(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 470, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();

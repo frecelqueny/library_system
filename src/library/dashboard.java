@@ -6,6 +6,8 @@
 package library;
 import Authentication.Registration;
 import Authentication.login;
+import adminInternalFrame.Logs;
+import adminInternalFrame.Profile;
 import adminInternalFrame.book;
 import adminInternalFrame.borrow;
 import adminInternalFrame.student;
@@ -15,15 +17,9 @@ import java.awt.Color;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Shane
- */
+
 public class dashboard extends javax.swing.JFrame {
 
-    /**
-     * Creates new form dashboard
-     */
     private UpdateUser updateUserWindow = null;
     public dashboard() {
         initComponents();
@@ -48,11 +44,9 @@ public class dashboard extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        user_label1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -64,6 +58,10 @@ public class dashboard extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         settingsButton = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        settingsButton1 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        settingsButton2 = new javax.swing.JLabel();
         mainDesktop = new javax.swing.JDesktopPane();
 
         jMenu3.setText("File");
@@ -91,14 +89,6 @@ public class dashboard extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 102, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/HI.png"))); // NOI18N
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 130, 110));
-
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("DASHBOARD");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 110, 40));
-
         jLabel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel7.setText("Admin ");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 60, 20));
@@ -115,17 +105,10 @@ public class dashboard extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 90, -1));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 90, -1));
 
-        user_label1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        user_label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        user_label1.setText("User");
-        user_label1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                user_label1MouseClicked(evt);
-            }
-        });
-        jPanel2.add(user_label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 100));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/HI.png"))); // NOI18N
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 130, 110));
 
         jPanel3.setBackground(new java.awt.Color(204, 153, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -141,7 +124,7 @@ public class dashboard extends javax.swing.JFrame {
         });
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 80, 30));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 80, 30));
 
         jPanel4.setBackground(new java.awt.Color(204, 153, 255));
         jPanel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -159,7 +142,7 @@ public class dashboard extends javax.swing.JFrame {
         });
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 60, 30));
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 80, 30));
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 80, 30));
 
         user_button.setBackground(new java.awt.Color(204, 153, 255));
         user_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -185,7 +168,7 @@ public class dashboard extends javax.swing.JFrame {
         });
         user_button.add(user_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 60, 30));
 
-        jPanel2.add(user_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 80, 30));
+        jPanel2.add(user_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 80, 30));
 
         jPanel6.setBackground(new java.awt.Color(204, 153, 255));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -201,7 +184,7 @@ public class dashboard extends javax.swing.JFrame {
         });
         jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 60, 30));
 
-        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 80, 30));
+        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 80, 30));
 
         jPanel7.setBackground(new java.awt.Color(204, 153, 255));
         jPanel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -219,10 +202,51 @@ public class dashboard extends javax.swing.JFrame {
         });
         jPanel7.add(settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 60, 30));
 
-        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 80, -1));
+        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 80, -1));
+
+        jPanel8.setBackground(new java.awt.Color(204, 153, 255));
+        jPanel8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        settingsButton1.setBackground(new java.awt.Color(204, 153, 255));
+        settingsButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        settingsButton1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        settingsButton1.setText("Logs");
+        settingsButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        settingsButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                settingsButton1MouseClicked(evt);
+            }
+        });
+        jPanel8.add(settingsButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 60, 30));
+
+        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 80, -1));
+
+        jPanel9.setBackground(new java.awt.Color(204, 153, 255));
+        jPanel9.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jPanel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel9MouseClicked(evt);
+            }
+        });
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        settingsButton2.setBackground(new java.awt.Color(204, 153, 255));
+        settingsButton2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        settingsButton2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        settingsButton2.setText("Profile");
+        settingsButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        settingsButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                settingsButton2MouseClicked(evt);
+            }
+        });
+        jPanel9.add(settingsButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 60, 30));
+
+        jPanel2.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 80, -1));
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 0, 110, 420);
+        jPanel2.setBounds(0, 0, 120, 510);
 
         mainDesktop.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -234,25 +258,25 @@ public class dashboard extends javax.swing.JFrame {
         mainDesktop.setLayout(mainDesktopLayout);
         mainDesktopLayout.setHorizontalGroup(
             mainDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
+            .addGap(0, 680, Short.MAX_VALUE)
         );
         mainDesktopLayout.setVerticalGroup(
             mainDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+            .addGap(0, 510, Short.MAX_VALUE)
         );
 
         jPanel1.add(mainDesktop);
-        mainDesktop.setBounds(110, 0, 610, 420);
+        mainDesktop.setBounds(120, 0, 680, 510);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 798, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
         );
 
         pack();
@@ -268,10 +292,6 @@ public class dashboard extends javax.swing.JFrame {
         log.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1MouseClicked
-
-    private void user_label1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_label1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_user_label1MouseClicked
 
     private void mainDesktopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainDesktopMouseClicked
         // TODO add your handling code here:
@@ -310,7 +330,7 @@ public class dashboard extends javax.swing.JFrame {
 
     private void settingsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingsButtonMouseClicked
         // TODO add your handling code here:
-        mainDesktop.add(new Settings()).setVisible(true);
+        mainDesktop.add(new setting()).setVisible(true);
     }//GEN-LAST:event_settingsButtonMouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
@@ -322,6 +342,20 @@ public class dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         mainDesktop.add(new borrow()).setVisible(true);
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void settingsButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingsButton1MouseClicked
+        mainDesktop.add(new Logs()).setVisible(true);
+    }//GEN-LAST:event_settingsButton1MouseClicked
+
+    private void settingsButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingsButton2MouseClicked
+        Profile pf = new Profile();
+        mainDesktop.add(pf).setVisible(true);
+    }//GEN-LAST:event_settingsButton2MouseClicked
+
+    private void jPanel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseClicked
+        Profile pf = new Profile();
+        mainDesktop.add(pf).setVisible(true);
+    }//GEN-LAST:event_jPanel9MouseClicked
 
     public static void main(String args[]) {
         
@@ -338,7 +372,6 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu3;
@@ -351,10 +384,13 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JDesktopPane mainDesktop;
     private javax.swing.JLabel settingsButton;
+    private javax.swing.JLabel settingsButton1;
+    private javax.swing.JLabel settingsButton2;
     private javax.swing.JPanel user_button;
     private javax.swing.JLabel user_label;
-    private javax.swing.JLabel user_label1;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,24 +1,20 @@
 
 package library;
 
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 import config.connectDB;
 import config.session;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
-public class Settings extends javax.swing.JInternalFrame {
-
-    private String originalAnswer = "";
+public class setting extends javax.swing.JInternalFrame {
+     private String originalAnswer = "";
     private boolean hasChanges = false;
     private connectDB db;
-
-    /**
-     * Creates new form Settings
-     */
-    public Settings() {
+    public setting() {
         initComponents();
-        db = new connectDB();
+        
+         db = new connectDB();
         
         //remove border
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
@@ -35,8 +31,8 @@ public class Settings extends javax.swing.JInternalFrame {
         // Load existing security settings
         loadSecuritySettings();
     }
-
-    private void loadSecuritySettings() {
+    
+     private void loadSecuritySettings() {
         try {
             String userId = session.getUserId();
             if (userId != null) {
@@ -73,7 +69,6 @@ public class Settings extends javax.swing.JInternalFrame {
         applyButton.setEnabled(hasChanges);
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -85,9 +80,6 @@ public class Settings extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         securityAnswerField = new javax.swing.JTextField();
         applyButton = new javax.swing.JButton();
-
-        setMinimumSize(new java.awt.Dimension(696, 550));
-        setPreferredSize(new java.awt.Dimension(610, 420));
 
         jPanel1.setBackground(new java.awt.Color(204, 153, 255));
         jPanel1.setMinimumSize(new java.awt.Dimension(680, 510));
@@ -129,7 +121,7 @@ public class Settings extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -143,7 +135,7 @@ public class Settings extends javax.swing.JInternalFrame {
         if (hasChanges) {
             String userId = session.getUserId();
             if (userId == null) {
-                JOptionPane.showMessageDialog(this, "User session not found. Please log in again.", 
+                JOptionPane.showMessageDialog(this, "User session not found. Please log in again.",
                     "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -152,14 +144,14 @@ public class Settings extends javax.swing.JInternalFrame {
             String answer = securityAnswerField.getText();
 
             if (answer.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Security answer cannot be empty!", 
+                JOptionPane.showMessageDialog(this, "Security answer cannot be empty!",
                     "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             String query = "UPDATE users SET security_question = '" + question + "', " +
-                         "security_answer = '" + answer + "' " +
-                         "WHERE user_id = '" + userId + "'";
+            "security_answer = '" + answer + "' " +
+            "WHERE user_id = '" + userId + "'";
 
             int result = db.UpdateData(query);
             if (result == 1) {
@@ -168,7 +160,7 @@ public class Settings extends javax.swing.JInternalFrame {
                 applyButton.setEnabled(false);
                 JOptionPane.showMessageDialog(this, "Security settings updated successfully!");
             } else {
-                JOptionPane.showMessageDialog(this, "Failed to update security settings. Please try again.", 
+                JOptionPane.showMessageDialog(this, "Failed to update security settings. Please try again.",
                     "Error", JOptionPane.ERROR_MESSAGE);
             }
         }

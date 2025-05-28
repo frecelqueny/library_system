@@ -7,6 +7,7 @@ public class session {
     private static String lastName;
     private static String username;
     private static String email;
+    private static String bookId;
 
     public static void setSession(String userId, String firstName, String lastName, String username, String email) {
         session.userId = userId;
@@ -14,6 +15,15 @@ public class session {
         session.lastName = lastName;
         session.username = username;
         session.email = email;
+        
+    }
+
+    public static String getBookId() {
+        return bookId;
+    }
+
+    public static void setBookId(String bookId) {
+        session.bookId = bookId;
     }
 
     public static String getUserId() {

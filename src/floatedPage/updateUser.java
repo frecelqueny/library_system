@@ -155,6 +155,9 @@ public class updateUser extends javax.swing.JPanel {
         if (result == 1) {
             JOptionPane.showMessageDialog(this, "User updated successfully!");
 
+            // ✅ Insert log for successful update
+            con.insertLog(Integer.parseInt(userId), "User updated their profile: " + username);
+
             // Close the registration form (JDialog)
             JDialog parentDialog = (JDialog) SwingUtilities.getWindowAncestor(this);
             if (parentDialog != null) {
@@ -162,7 +165,11 @@ public class updateUser extends javax.swing.JPanel {
             }
         } else {
             JOptionPane.showMessageDialog(this, "Update failed. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+
+            // ❌ Insert log for failed update attempt
+            con.insertLog(Integer.parseInt(userId), "Failed to update profile for user: " + username);
         }
+
     }//GEN-LAST:event_saveMouseClicked
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed

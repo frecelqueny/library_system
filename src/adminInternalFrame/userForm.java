@@ -137,6 +137,7 @@ public class userForm extends javax.swing.JInternalFrame {
         refreshButton = new javax.swing.JButton();
 
         user.setBackground(new java.awt.Color(204, 153, 255));
+        user.setPreferredSize(new java.awt.Dimension(680, 510));
         user.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         user_tbl.setModel(new javax.swing.table.DefaultTableModel(
@@ -154,7 +155,7 @@ public class userForm extends javax.swing.JInternalFrame {
 
         jScrollPane2.setViewportView(jScrollPane1);
 
-        user.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 610, 300));
+        user.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 660, 300));
 
         add.setText("ADD");
         add.setMaximumSize(new java.awt.Dimension(69, 23));
@@ -169,7 +170,7 @@ public class userForm extends javax.swing.JInternalFrame {
                 addActionPerformed(evt);
             }
         });
-        user.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, -1, -1));
+        user.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
 
         edit.setText("EDIT");
         edit.setMaximumSize(new java.awt.Dimension(69, 23));
@@ -184,7 +185,7 @@ public class userForm extends javax.swing.JInternalFrame {
                 editActionPerformed(evt);
             }
         });
-        user.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, -1, -1));
+        user.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 470, -1, -1));
 
         delete.setText("DELETE");
         delete.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -197,7 +198,7 @@ public class userForm extends javax.swing.JInternalFrame {
                 deleteActionPerformed(evt);
             }
         });
-        user.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, -1, -1));
+        user.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 470, -1, -1));
 
         jTextField1.setText("search...");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -205,11 +206,11 @@ public class userForm extends javax.swing.JInternalFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
-        user.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 190, -1));
+        user.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 190, -1));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("User");
-        user.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 10, -1, -1));
+        user.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, -1, -1));
 
         refreshButton.setText("Refresh");
         refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -222,18 +223,18 @@ public class userForm extends javax.swing.JInternalFrame {
                 refreshButtonActionPerformed(evt);
             }
         });
-        user.add(refreshButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 370, -1, -1));
+        user.add(refreshButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 470, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -354,28 +355,46 @@ public class userForm extends javax.swing.JInternalFrame {
 
     private void deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteMouseClicked
         int rowIndex = user_tbl.getSelectedRow();
-        
-        if(rowIndex < 0){
-            JOptionPane.showMessageDialog(null, " Please select an Item!!! ");
+
+        if (rowIndex < 0) {
+            JOptionPane.showMessageDialog(null, "Please select an item!");
             return;
         }
-        
+
         TableModel tbl = user_tbl.getModel();
-        
-        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete user ID " + tbl.getValueAt(rowIndex, 0) + "?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+        int userIdToDelete = Integer.parseInt(tbl.getValueAt(rowIndex, 0).toString());
+        String usernameToDelete = tbl.getValueAt(rowIndex, 3).toString(); // assuming column 3 is username
+
+        int confirm = JOptionPane.showConfirmDialog(
+            this,
+            "Are you sure you want to delete user ID " + userIdToDelete + "?",
+            "Confirm Delete",
+            JOptionPane.YES_NO_OPTION
+        );
 
         if (confirm == JOptionPane.YES_OPTION) {
             connectDB con = new connectDB();
-            
-            int result = con.UpdateData("DELETE FROM users WHERE user_id = " + tbl.getValueAt(rowIndex, 0));
-            
+
+            // ✅ Log the deletion attempt before deleting
+            con.insertLog(userIdToDelete, "User account scheduled for deletion: " + usernameToDelete);
+
+            int result = con.UpdateData("DELETE FROM users WHERE user_id = " + userIdToDelete);
+
             if (result == 1) {
                 JOptionPane.showMessageDialog(this, "User deleted successfully!");
-                loadUsers();
+
+                // Optionally log confirmation (if you're tracking both attempts and success)
+                // con.insertLog(userIdToDelete, "User account deleted: " + usernameToDelete);
+
+                loadUsers(); // Refresh the table
             } else {
                 JOptionPane.showMessageDialog(this, "User ID not found or deletion failed.", "Error", JOptionPane.ERROR_MESSAGE);
+
+                // Optionally log failure
+                con.insertLog(userIdToDelete, "Failed to delete user: " + usernameToDelete);
             }
         }
+
     }//GEN-LAST:event_deleteMouseClicked
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed

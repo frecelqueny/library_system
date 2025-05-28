@@ -83,6 +83,11 @@ public class addStudent extends javax.swing.JPanel {
                 addButtonMouseClicked(evt);
             }
         });
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
         jPanel1.add(addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, 70, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -108,32 +113,42 @@ public class addStudent extends javax.swing.JPanel {
         try {
             // Validate year is a number
             int year = Integer.parseInt(em.getText().trim());
-            
+
             // Create database connection
             connectDB dbc = new connectDB();
-            
+
             // Prepare insert query
             String query = "INSERT INTO student (Name, Program, Year, Section) VALUES ('" +
                          fn.getText().trim() + "', '" +
                          studentId.getText().trim() + "', " +
                          year + ", '" +
                          course.getText().trim() + "')";
-            
+
             // Execute insert
             int result = dbc.InsertData(query);
-            
+
             if (result == 1) {
                 JOptionPane.showMessageDialog(this, "Student added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                // ✅ Log the action
+                try {
+                    int userId = Integer.parseInt(config.session.getUserId()); // Get current logged-in user
+                    String action = "Added student: " + fn.getText().trim() + " (Program: " + studentId.getText().trim() + ")";
+                    dbc.insertLog(userId, action);
+                } catch (Exception logEx) {
+                    logEx.printStackTrace(); // Optional: handle logging error
+                }
+
                 // Clear fields
                 fn.setText("");
                 studentId.setText("");
                 em.setText("");
                 course.setText("");
-                
+
                 // Close dialog if this is in a dialog
                 JDialog parentDialog = (JDialog) SwingUtilities.getWindowAncestor(this);
                 if (parentDialog != null) {
-                    parentDialog.dispose();  // Close the current JDialog
+                    parentDialog.dispose();
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to add student!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -143,7 +158,12 @@ public class addStudent extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_addButtonMouseClicked
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
